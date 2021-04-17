@@ -13,13 +13,9 @@ import os
 
 # Flask Imports.
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
 
 # Init Configurations.
 DATABASE_NAME = "phonic_db.sql"
-db = SQLAlchemy()
-ma = Marshmallow()
 
 
 def create_app(test_config=None):
@@ -66,8 +62,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/")
-    def hello():
-        return "Hello, World!"
+    # Registering Database & Marshmallow Parser.
+    from phonic.database import db
+    from phonic.schema import ma
+
+    db.init_app(app)
+    ma.init_app(app)
+
+    # Registering Audio Blueprint.
+    from phonic.audio import audio_bp
+    app.register_blueprint(audio_bp)
 
     return app
