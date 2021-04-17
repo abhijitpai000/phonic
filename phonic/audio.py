@@ -91,7 +91,7 @@ def post_audio(audioFileType, audioFileID):
         db.session.commit()
 
         # Marshmallow Parser.
-        new_audiobook_schema = PodcastSchema()
+        new_audiobook_schema = AudioBookSchema()
         response = new_audiobook_schema.jsonify(new_audiobook)
 
     return response
