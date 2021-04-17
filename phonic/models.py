@@ -25,36 +25,35 @@ class Base(db.Model):
     id = db.Column(db.Integer,
                    unique=True,
                    primary_key=True,
-                   autoincrement=True,
-                   nullable=True)
+                   nullable=False)
 
     name = db.Column(db.String(100),
-                     nullable=True)
+                     nullable=False)
 
     duration = db.Column(db.Integer,
-                         nullable=True)
+                         nullable=False)
 
     uploaded_time = db.Column(db.DateTime,
                               default=datetime.datetime.utcnow(),
-                              nullable=True)
+                              nullable=False)
 
-    def __init__(self, name, duration, uploaded_time):
+    def __init__(self, id, duration, name):
         """
         Base Data Model.
 
         Parameters
         ----------
-        name: str, max = 100 char
-            Name of the song
+        id: int.
+            Identification Number of the audioFile
         duration: int
-            Duration of the song
-        uploaded_time: datetime, default = Current time UTC
-            DataTime of the file upload
+            Duration of the audioFile
+        name: str, max = 100 char, default = None
+            Name of the audioFile
 
         """
+        self.id = id
         self.name = name
         self.duration = duration
-        self.uploaded_time = uploaded_time
 
 
 class Song(Base):
@@ -65,12 +64,21 @@ class Song(Base):
 
     # todo: validate as a required field.
 
-    def __init__(self):
+    def __init__(self, id, name, duration):
         """
         Init Song Data Model.
 
+        Parameters
+        ----------
+        id: int.
+            Identification Number of the Song
+        name: str, max = 100 char
+            Name of the Song
+        duration: int
+            Duration of the Song
+
         """
-        super(Song, self).__init__()
+        super(Song, self).__init__(id=id, name=name, duration=duration)
 
 
 class Podcast(Base):
@@ -81,25 +89,30 @@ class Podcast(Base):
     # todo: Add Column Validation Layer to Podcast.
 
     host = db.Column(db.String(100),
-                     nullable=False)
+                     nullable=True)
 
     participants = db.Column(db.PickleType,
-                             nullable=False)
+                             nullable=True)
 
-    def __init__(self, host, participants):
+    def __init__(self, id, name, duration, host=None, participants=None):
         """
         Init Podcast Data Model.
 
         Parameters
         ----------
+        id: int.
+            Identification Number of the Podcast file
+        name: str, max = 100 char
+            Name of the Podcast
+        duration: int
+            Duration of the Podcast
         host: str, max = 100 char
-            Name of the Podcast Host.
-        participants: pkl (list of string), max = 10 participants.
+            Name of the Podcast Host
+        participants: pkl (list of string), max = 10 participants
             Name of Participants.
 
         """
-        super(Podcast, self).__init__()
-
+        super(Podcast, self).__init__(id=id, name=name, duration=duration)
         self.host = host
         self.participants = participants
 
@@ -112,27 +125,31 @@ class AudioBook(Base):
     # todo: Add Column Validation Layer to Audiobook.
 
     author = db.Column(db.String(100),
-                       nullable=True)
+                       nullable=False)
 
     narrator = db.Column(db.String(100),
-                         nullable=True)
+                         nullable=False)
 
-    def __init__(self, name, author, narrator):
+    def __init__(self, id, name, author, narrator, duration):
         """
         Init Podcast Data Model.
 
         Parameters
         ----------
+        id: int
+            Identification Number of the Audiobook file
         name: str, max = 100 char
-            Title of the Audiobook.
+            Title of the Audiobook
         author: str, max = 100 char
-            Author of the Audiobook.
+            Author of the Audiobook
         narrator: str, max = 100 char
-            Narrator of the Audiobook.
+            Narrator of the Audiobook
+        duration: int,
+            Duration of the Audiobook
+
 
         """
-        super(AudioBook, self).__init__()
-        self.name = name
+        super(AudioBook, self).__init__(id=id, name=name, duration=duration)
         self.author = author
         self.narrator = narrator
 
@@ -164,7 +181,7 @@ class AudioBookSchema(ma.Schema):
     """
 
     class Meta:
-        fields = ("id", "name", "author", "narrator", "duration", "uploaded_time")
+        fields = ("id", "title", "author", "narrator", "duration", "uploaded_time")
 
 
 def init_db(app):
