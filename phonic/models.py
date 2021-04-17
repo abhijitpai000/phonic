@@ -21,7 +21,7 @@ from phonic import db, ma
 
 class Song(db.Model):
     """
-    Class for creating Song Table.
+    Song Data Model.
 
     """
     # todo: validate as a required field.
@@ -29,16 +29,22 @@ class Song(db.Model):
     id = db.Column(db.Integer,
                    unique=True,
                    primary_key=True,
-                   autoincrement=True)
+                   autoincrement=True,
+                   nullable=True)
 
-    name = db.Column(db.String(100))
-    duration = db.Column(db.Integer)
+    name = db.Column(db.String(100),
+                     nullable=True)
+
+    duration = db.Column(db.Integer,
+                         nullable=True)
+
     uploaded_time = db.Column(db.DateTime,
-                              default=datetime.datetime.utcnow())
+                              default=datetime.datetime.utcnow(),
+                              nullable=True)
 
     def __init__(self, name, duration, uploaded_time):
         """
-        Init Song Table.
+        Init Song Data Model.
 
         Parameters
         ----------
@@ -53,3 +59,57 @@ class Song(db.Model):
         self.name = name
         self.duration = duration
         self.uploaded_time = uploaded_time
+
+
+class Podcast(db.Model):
+    """
+    Podcast Data Model.
+
+    """
+    # todo: Add Column Validation Layer to Podcast.
+
+    id = db.Column(db.Integer,
+                   unique=True,
+                   autoincrement=True,
+                   primary_key=True,
+                   nullable=True)
+
+    name = db.Column(db.String(100),
+                     nullable=True)
+
+    duration = db.Column(db.Integer,
+                         nullable=True)
+
+    uploaded_time = db.Column(db.Datetime,
+                              defualt=datetime.datetime.utcnow(),
+                              nullable=True)
+
+    host = db.Column(db.String(100),
+                     nullable=False)
+
+    participants = db.Column(db.PickleType,
+                             nullable=False)
+
+    def __init__(self, name, duration, uploaded_time, host, participants):
+        """
+        Init Podcast Data Model.
+
+        Parameters
+        ----------
+        name: str, max = 100 char
+            Name of the Podcast
+        duration: int
+            Duration of the Podcast
+        uploaded_time: datetime, default = Current time UTC
+            DataTime of the file upload
+        host: str, max = 100 char
+            Name of the Podcast Host.
+        participants: pkl (list of string), max = 10 participants.
+            Name of Participants.
+
+        """
+        self.name = name
+        self.duration = duration
+        self.uploaded_time = uploaded_time
+        self.host = host
+        self.participants = participants
