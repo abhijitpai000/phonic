@@ -113,3 +113,57 @@ class Podcast(db.Model):
         self.uploaded_time = uploaded_time
         self.host = host
         self.participants = participants
+
+
+class AudioBook(db.Model):
+    """
+    AudioBook Data Model.
+
+    """
+    # todo: Add Column Validation Layer to Audiobook.
+
+    id = db.Column(db.Integer,
+                   unique=True,
+                   autoincrement=True,
+                   primary_key=True,
+                   nullable=True)
+
+    title = db.Column(db.String(100),
+                      nullable=True)
+
+    author = db.Column(db.String(100),
+                       nullable=True)
+
+    narrator = db.Column(db.String(100),
+                         nullable=True)
+
+    duration = db.Column(db.Integer,
+                         nullable=True)
+
+    uploaded_time = db.Column(db.Datetime,
+                              defualt=datetime.datetime.utcnow(),
+                              nullable=True)
+
+    def __init__(self, title, author, narrator, duration, uploaded_time):
+        """
+        Init Podcast Data Model.
+
+        Parameters
+        ----------
+        title: str, max = 100 char
+            Title of the Audiobook.
+        author: str, max = 100 char
+            Author of the Audiobook.
+        narrator: str, max = 100 char
+            Narrator of the Audiobook.
+        duration: int
+            Duration of the Podcast
+        uploaded_time: datetime, default = Current time UTC
+            DataTime of the file upload
+
+        """
+        self.title = title
+        self.author = author
+        self.narrator = narrator
+        self.duration = duration
+        self.uploaded_time = uploaded_time
