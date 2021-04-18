@@ -23,7 +23,6 @@ def app():
     # Grab Database path.
     root_dir = os.path.abspath(os.path.dirname(__file__))
     temp_db_uri = "sqlite:///" + os.path.join(root_dir, TEMP_DATABASE_NAME)
-    print(temp_db_uri)
 
     # Configuring app for testing.
     app = create_app({
