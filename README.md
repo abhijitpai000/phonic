@@ -6,7 +6,10 @@ A Flask API that simulates the behavior of an audio file server while using a SQ
 
 ## Setup Instructions: 
 
-### Linux:
+### Clone/Fork Repo
+> git clone https://github.com/abhijitpai000/phonic.git
+
+### For Linux:
 1. **Create a Python virtual environment**
 > python3 -m venv phonic_env
 
@@ -32,7 +35,7 @@ OR
 **Check:** [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
 
-### Windows:
+### For Windows:
 1. **Create a Python virtual environment**
 > python -m venv phonic_env
 
