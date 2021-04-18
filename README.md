@@ -4,7 +4,7 @@
 
 A Flask API that simulates the behavior of an audio file server while using a SQL database.
 
-## Setup Instructions:
+## Setup Instructions: 
 
 ### Linux:
 1. **Create a Python virtual environment**
@@ -29,6 +29,8 @@ OR
 
 > flask run
 
+**Check:** [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+
 
 ### Windows:
 1. **Create a Python virtual environment**
@@ -52,7 +54,9 @@ OR
 
 > flask run
 
-# API Usage Guide
+**Check:** [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+
+## API Usage Guide
 * API URI = "/api/audioFileType/audioFileID"
 * Methods = GET, POST, PUT & DELETE
   
