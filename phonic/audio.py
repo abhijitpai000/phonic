@@ -252,12 +252,14 @@ def put_audio(audioFileType, audioFileID):
         id = audioFileID
         name = request.json["name"]
         duration = request.json["duration"]
+        host = request.json["host"]
 
         # Update.
-        podcast = Song.query.get(id)
+        podcast = Podcast.query.get(id)
         podcast.id = id
         podcast.name = name
         podcast.duration = duration
+        podcast.host = host
 
         db.session.commit()
 
