@@ -1,5 +1,61 @@
 # phonic
+[![Generic badge](https://img.shields.io/badge/Python-3.7.9-<COLOR>.svg)](https://shields.io/) 
+[![Generic badge](https://img.shields.io/badge/TestCoverage-96percent-<COLOR>.svg)](https://shields.io/)
+
 A Flask API that simulates the behavior of an audio file server while using a SQL database.
+
+## Setup Instructions:
+
+### Linux:
+1. Create a Python virtual environment
+> python3 -m venv phonic_env
+
+2. Activate Virtual Environment
+> source phonic_env/bin/activate
+
+3. Install Requirements
+> pip install -r requirements.txt
+
+OR
+
+4. Using Setup.py
+> pip install -e
+
+5. Setup Flask Configuration & Run.
+
+> export FLASK_APP=phonic
+
+> export FLASK_ENV=development
+
+> flask run
+
+
+### Windows:
+1. Create a Python virtual environment
+> python -m venv phonic_env
+
+2. Activate Virtual Environment
+> .\phonic_env\Scripts\activate
+
+3. Install Requirements
+> pip install -r requirements.txt
+
+OR
+
+4. Using Setup.py
+> pip install -e
+
+5. Setup Flask Configuration & Run.
+> set FLASK_APP=phonic
+
+> set FLASK_ENV=development
+
+> flask run
+
+# API Usage Guide
+* API URI = "/api/audioFileType/audioFileID"
+* Methods = GET, POST, PUT & DELETE
+  
 
 ## Repository Structure
     .
