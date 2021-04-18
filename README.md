@@ -7,21 +7,21 @@ A Flask API that simulates the behavior of an audio file server while using a SQ
 ## Setup Instructions:
 
 ### Linux:
-1. Create a Python virtual environment
+1. **Create a Python virtual environment**
 > python3 -m venv phonic_env
 
-2. Activate Virtual Environment
+2. **Activate Virtual Environment**
 > source phonic_env/bin/activate
 
-3. Install Requirements
+3. **Install Project requirements**
 > pip install -r requirements.txt
 
 OR
 
-4. Using Setup.py
+4. **Using Setup.py**
 > pip install -e
 
-5. Setup Flask Configuration & Run.
+5. **Setup Flask Configuration & Run.**
 
 > export FLASK_APP=phonic
 
@@ -31,21 +31,21 @@ OR
 
 
 ### Windows:
-1. Create a Python virtual environment
+1. **Create a Python virtual environment**
 > python -m venv phonic_env
 
-2. Activate Virtual Environment
+2. **Activate Virtual Environment**
 > .\phonic_env\Scripts\activate
 
-3. Install Requirements
+3. **Install Requirements**
 > pip install -r requirements.txt
 
 OR
 
-4. Using Setup.py
+4. **Using Setup.py**
 > pip install -e
 
-5. Setup Flask Configuration & Run.
+5. **Setup Flask Configuration & Run.**
 > set FLASK_APP=phonic
 
 > set FLASK_ENV=development
