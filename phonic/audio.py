@@ -285,6 +285,7 @@ def delete_audio(audioFileType, audioFileID):
     response = jsonify({})
 
     if audioFileType == "song":
+        # Query the file to delete.
         song = Song.query.get(audioFileID)
         db.session.delete(song)
         db.session.commit()
@@ -293,6 +294,7 @@ def delete_audio(audioFileType, audioFileID):
         response = song_schema.jsonify(song)
 
     elif audioFileType == "podcast":
+        # Query the file to delete.
         podcast = Podcast.query.get(audioFileID)
         db.session.delete(podcast)
         db.session.commit()
@@ -301,6 +303,7 @@ def delete_audio(audioFileType, audioFileID):
         response = podcast_schema.jsonify(podcast)
 
     elif audioFileType == "audiobook":
+        # Query the file to delete.
         audiobook = AudioBook.query.get(audioFileID)
         db.session.delete(audiobook)
         db.session.commit()
