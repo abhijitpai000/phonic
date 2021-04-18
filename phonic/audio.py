@@ -101,7 +101,7 @@ def post_audio(audioFileType, audioFileID):
 @audio_bp.route("/<audioFileType>", methods=["GET"])
 def get_audio(audioFileType):
     """
-    GET all Audio Files of the audioFileType stored in the Database.
+    GET all Audio of the audioFileType stored in the Database.
 
     CRUD Operation: READ
 
@@ -135,7 +135,7 @@ def get_audio(audioFileType):
 @audio_bp.route("/<audioFileType>/<audioFileID>", methods=["GET"])
 def get_specific_audio(audioFileType, audioFileID):
     """
-    GET specific Audio Files of the audioFileType stored in the Database.
+    GET specific Audio of the audioFileType stored in the Database.
 
     CRUD Operation: READ
 
