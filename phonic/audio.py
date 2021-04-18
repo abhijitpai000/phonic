@@ -8,7 +8,7 @@ from flask import Blueprint, request, jsonify
 
 # Local Imports.
 from phonic import create_app
-from phonic.models import init_db
+from phonic.database import init_db
 from phonic.models import Song, Podcast, AudioBook
 from phonic.models import SongSchema, PodcastSchema, AudioBookSchema
 
