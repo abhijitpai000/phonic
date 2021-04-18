@@ -14,6 +14,9 @@ import os
 # Flask Imports.
 from flask import Flask
 
+# Local Imports.
+from phonic.models import register_extensions
+
 # Init Configurations.
 DATABASE_NAME = "phonic_db.sqlite"
 
@@ -63,11 +66,7 @@ def create_app(test_config=None):
         pass
 
     # Registering Database & Marshmallow Parser.
-    from phonic.database import db
-    from phonic.schema import ma
-
-    db.init_app(app)
-    ma.init_app(app)
+    register_extensions(app)
 
     # Registering Audio Blueprint.
     from phonic.audio import audio_bp
