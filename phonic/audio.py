@@ -22,14 +22,16 @@ app = create_app()
 db = init_db(app)
 
 
-@audio_bp.route("/audio/<audioFileType>/<audioFileID>", methods=["POST"])
+@audio_bp.route("/<audioFileType>/<audioFileID>", methods=["POST"])
 def post_audio(audioFileType, audioFileID):
     """
-    POST Audio.
+    POST Audio to the Database.
+
+    CRUD Operation: CREATE
 
     Parameters
     ----------
-    audioFileType: str
+    audioFileType: str, max = 100 char
         Audio File Type
     audioFileID: int
         Audio File ID
@@ -37,7 +39,6 @@ def post_audio(audioFileType, audioFileID):
     Returns
     -------
     response: json.
-        Row Added to the Database.
 
     """
 
@@ -75,7 +76,7 @@ def post_audio(audioFileType, audioFileID):
 
     elif audioFileType == "audiobook":
         id = audioFileID
-        title = request.json["title"]
+        title = request.json["name"]
         author = request.json["author"]
         narrator = request.json["narrator"]
         duration = request.json["duration"]
@@ -93,5 +94,77 @@ def post_audio(audioFileType, audioFileID):
         # Marshmallow Parser.
         new_audiobook_schema = AudioBookSchema()
         response = new_audiobook_schema.jsonify(new_audiobook)
+
+    return response
+
+
+@audio_bp.route("/<audioFileType>", methods=["GET"])
+def get_audio(audioFileType):
+    """
+    GET all Audio Files of the audioFileType stored in the Database.
+
+    CRUD Operation: READ
+
+    Parameters
+    ----------
+    audioFileType: str, max = 100 char
+        Audio File Type
+    Returns
+    -------
+    response: json.
+
+    """
+    if audioFileType == "song":
+        records = Song.query.all()
+        songs_schema = SongSchema(many=True)
+        response = songs_schema.jsonify(records)
+
+    elif audioFileType == "podcast":
+        records = Podcast.query.all()
+        podcasts_schema = PodcastSchema(many=True)
+        response = podcasts_schema.jsonify(records)
+
+    elif audioFileType == "audiobook":
+        records = AudioBook.query.all()
+        audiobooks_schema = AudioBookSchema(many=True)
+        response = audiobooks_schema.jsonify(records)
+
+    return response
+
+
+@audio_bp.route("/<audioFileType>/<audioFileID>", methods=["GET"])
+def get_specific_audio(audioFileType, audioFileID):
+    """
+    GET specific Audio Files of the audioFileType stored in the Database.
+
+    CRUD Operation: READ
+
+    Parameters
+    ----------
+    audioFileType: str, max = 100 char
+        Audio File Type
+
+    audioFileID: int.
+        Audio File ID.
+
+    Returns
+    -------
+    response: json.
+
+    """
+    if audioFileType == "song":
+        records = Song.query.get(audioFileID)
+        song_schema = SongSchema()
+        response = song_schema.jsonify(records)
+
+    elif audioFileType == "podcast":
+        records = Podcast.query.get(audioFileID)
+        podcast_schema = PodcastSchema()
+        response = podcast_schema.jsonify(records)
+
+    elif audioFileType == "audiobook":
+        records = AudioBook.query.get(audioFileID)
+        audiobook_schema = AudioBookSchema()
+        response = audiobook_schema.jsonify(records)
 
     return response
