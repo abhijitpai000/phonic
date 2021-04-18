@@ -12,7 +12,7 @@ Handles
 import os
 
 # Flask Imports.
-from flask import Flask
+from flask import Flask, render_template
 
 # Local Imports.
 from phonic.models import register_extensions
@@ -71,5 +71,9 @@ def create_app(test_config=None):
     # Registering Audio Blueprint.
     from phonic.audio import audio_bp
     app.register_blueprint(audio_bp)
+
+    @app.route("/")
+    def homepage():
+        return render_template("homepage.html")
 
     return app
