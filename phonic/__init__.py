@@ -15,7 +15,7 @@ import os
 from flask import Flask
 
 # Init Configurations.
-DATABASE_NAME = "phonic_db.sql"
+DATABASE_NAME = "phonic_db.sqlite"
 
 
 def create_app(test_config=None):
