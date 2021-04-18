@@ -61,7 +61,91 @@ OR
 
 ## API Usage Guide
 * API URI = "/api/audioFileType/audioFileID"
-* Methods = GET, POST, PUT & DELETE
+*                 |                 └── Integer
+                  └── song, podcast or audiobook
+
+**Example 1: Add a Song to the Database using POST**
+
+```
+import requests
+import json
+
+url = "http://127.0.0.1:5000/api/song/1"
+
+payload = json.dumps({
+  "name": "Song 1",
+  "duration": 100
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+**Example 2: Obtain all Songs stored in the Database using GET**
+```
+
+import requests
+import json
+
+url = "http://127.0.0.1:5000/api/song"
+
+payload = json.dumps({
+  "name": "Song 1",
+  "duration": 100
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+**Example 3: Change Song 1 name using PUT**
+```
+import requests
+import json
+
+url = "http://127.0.0.1:5000/api/song/1"
+
+payload = json.dumps({
+  "name": "Song One",
+  "duration": 100
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("PUT", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+**Example 3: Delete Song 1 name using DELETE**
+```
+import requests
+import json
+
+url = "http://127.0.0.1:5000/api/song/1"
+
+payload = json.dumps({
+  "name": "Song One",
+  "duration": 100
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
 
 ## Testing:
 
