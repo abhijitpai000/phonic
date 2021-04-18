@@ -59,7 +59,21 @@ OR
 ## API Usage Guide
 * API URI = "/api/audioFileType/audioFileID"
 * Methods = GET, POST, PUT & DELETE
-  
+
+## Testing:
+
+1. **Run all tests**
+
+> python -m pytest -vv
+
+2. **Run all tests with coverage**
+
+> coverage -m pytest
+
+3. **Generate Coverage Report**
+> coverage report
+
+Note: delete the phonic_test_db.sqlite file before Setup 1 always.
 
 ## Repository Structure
     .
