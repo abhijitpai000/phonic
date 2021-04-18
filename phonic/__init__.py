@@ -18,7 +18,7 @@ from flask import Flask
 from phonic.models import register_extensions
 
 # Init Configurations.
-DATABASE_NAME = "phonic_db.sqlite"
+DATABASE_NAME = "phonic_dev_db.sqlite"
 
 
 def create_app(test_config=None):
