@@ -2,9 +2,12 @@
 Audio Blueprint.
 
 """
-
 # Flask Imports.
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Response
+
+# Sqlalchemy Exceptions.
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import PendingRollbackError
 
 # Local Imports.
 from phonic.models import db
@@ -44,55 +47,56 @@ def post_audio(audioFileType, audioFileID):
             id = audioFileID
             name = request.json["name"]
             duration = request.json["duration"]
-        except KeyError:
-            message = {
-                "status_code": 400,
-                "message": "Bad Request, check missing payload"
-            }
-            response = jsonify(message)
 
-        new_song = Song(id=id, name=name, duration=duration)
+        except (KeyError, IntegrityError):
 
-        # Add new song to db.
-        db.session.add(new_song)
-        db.session.commit()
+            return Response(
+                "Bad Request, check Fields",
+                status=400
+            )
+        else:
+            new_song = Song(id=id, name=name, duration=duration)
 
-        # Marshmallow Parser.
-        new_song_schema = SongSchema()
-        response = new_song_schema.jsonify(new_song)
+            # Add new song to db.
+            db.session.add(new_song)
+            db.session.commit()
+
+            # Marshmallow Parser.
+            new_song_schema = SongSchema()
+            response = new_song_schema.jsonify(new_song)
 
     elif audioFileType == "podcast":
         # Default None.
-        participants = None
+        try:
+            participants = request.json["participants"]
+        except KeyError:
+            participants = None
 
         try:
             id = audioFileID
             name = request.json["name"]
             duration = request.json["duration"]
             host = request.json["host"]
-            if response.json["participants"] is not None:
-                participants = request.json["participants"]
+        except (KeyError, IntegrityError):
 
-        except KeyError:
-            message = {
-                "status_code": 400,
-                "message": "Bad Request, check missing payload"
-            }
-            response = jsonify(message)
+            return Response(
+                "Bad Request, check Fields",
+                status=400
+            )
+        else:
+            new_podcast = Podcast(id=id,
+                                  name=name,
+                                  duration=duration,
+                                  host=host,
+                                  participants=participants)
 
-        new_podcast = Podcast(id=id,
-                              name=name,
-                              duration=duration,
-                              host=host,
-                              participants=participants)
+            # Add new podcast to db.
+            db.session.add(new_podcast)
+            db.session.commit()
 
-        # Add new podcast to db.
-        db.session.add(new_podcast)
-        db.session.commit()
-
-        # Marshmallow Parser.
-        new_podcast_schema = PodcastSchema()
-        response = new_podcast_schema.jsonify(new_podcast)
+            # Marshmallow Parser.
+            new_podcast_schema = PodcastSchema()
+            response = new_podcast_schema.jsonify(new_podcast)
 
     elif audioFileType == "audiobook":
         try:
@@ -102,26 +106,26 @@ def post_audio(audioFileType, audioFileID):
             narrator = request.json["narrator"]
             duration = request.json["duration"]
 
-        except KeyError:
-            message = {
-                "status_code": 400,
-                "message": "Bad Request, check missing payload"
-            }
-            response = jsonify(message)
+        except (KeyError, IntegrityError):
 
-        new_audiobook = AudioBook(id=id,
-                                  name=name,
-                                  author=author,
-                                  narrator=narrator,
-                                  duration=duration)
+            return Response(
+                "Bad Request, check Fields",
+                status=400
+            )
+        else:
+            new_audiobook = AudioBook(id=id,
+                                      name=name,
+                                      author=author,
+                                      narrator=narrator,
+                                      duration=duration)
 
-        # Add new podcast to db.
-        db.session.add(new_audiobook)
-        db.session.commit()
+            # Add new podcast to db.
+            db.session.add(new_audiobook)
+            db.session.commit()
 
-        # Marshmallow Parser.
-        new_audiobook_schema = AudioBookSchema()
-        response = new_audiobook_schema.jsonify(new_audiobook)
+            # Marshmallow Parser.
+            new_audiobook_schema = AudioBookSchema()
+            response = new_audiobook_schema.jsonify(new_audiobook)
 
     return response
 
