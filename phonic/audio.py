@@ -3,7 +3,7 @@ Audio Blueprint.
 
 """
 # Flask Imports.
-from flask import Blueprint, request, jsonify, Response
+from flask import Blueprint, request, jsonify, Response, render_template
 
 # Sqlalchemy Exceptions.
 from sqlalchemy.exc import IntegrityError
@@ -343,3 +343,11 @@ def delete_audio(audioFileType, audioFileID):
         response = audiobook_schema.jsonify(audiobook)
 
     return response
+
+
+@audio_bp.route("/docs")
+def docs():
+    """
+    Renders a Basic API Documentation.
+    """
+    return render_template("docs.html")
