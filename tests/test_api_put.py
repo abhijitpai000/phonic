@@ -45,7 +45,7 @@ def test_podcast_5(client):
     """
     payload = {
         "name": "Podcast 5",
-        "duration": 2000,
+        "duration": 5000,
         "host": "Podcast Host 5",
     }
 
@@ -55,7 +55,7 @@ def test_podcast_5(client):
     # Update Product 5 Name.
     payload_update = {
         "name": "Podcast Five",
-        "duration": 2000,
+        "duration": 5000,
         "host": "Podcast Host Five",
     }
 
