@@ -40,9 +40,16 @@ def post_audio(audioFileType, audioFileID):
     response = jsonify({})
 
     if audioFileType == "song":
-        id = audioFileID
-        name = request.json["name"]
-        duration = request.json["duration"]
+        try:
+            id = audioFileID
+            name = request.json["name"]
+            duration = request.json["duration"]
+        except KeyError:
+            message = {
+                "status_code": 400,
+                "message": "Bad Request, check missing payload"
+            }
+            response = jsonify(message)
 
         new_song = Song(id=id, name=name, duration=duration)
 
@@ -55,11 +62,23 @@ def post_audio(audioFileType, audioFileID):
         response = new_song_schema.jsonify(new_song)
 
     elif audioFileType == "podcast":
-        id = audioFileID
-        name = request.json["name"]
-        duration = request.json["duration"]
-        host = request.json["host"]
-        participants = request.json["participants"]
+        # Default None.
+        participants = None
+
+        try:
+            id = audioFileID
+            name = request.json["name"]
+            duration = request.json["duration"]
+            host = request.json["host"]
+            if response.json["participants"] is not None:
+                participants = request.json["participants"]
+
+        except KeyError:
+            message = {
+                "status_code": 400,
+                "message": "Bad Request, check missing payload"
+            }
+            response = jsonify(message)
 
         new_podcast = Podcast(id=id,
                               name=name,
@@ -76,11 +95,19 @@ def post_audio(audioFileType, audioFileID):
         response = new_podcast_schema.jsonify(new_podcast)
 
     elif audioFileType == "audiobook":
-        id = audioFileID
-        name = request.json["name"]
-        author = request.json["author"]
-        narrator = request.json["narrator"]
-        duration = request.json["duration"]
+        try:
+            id = audioFileID
+            name = request.json["name"]
+            author = request.json["author"]
+            narrator = request.json["narrator"]
+            duration = request.json["duration"]
+
+        except KeyError:
+            message = {
+                "status_code": 400,
+                "message": "Bad Request, check missing payload"
+            }
+            response = jsonify(message)
 
         new_audiobook = AudioBook(id=id,
                                   name=name,
