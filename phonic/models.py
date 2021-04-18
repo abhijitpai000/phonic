@@ -182,26 +182,3 @@ class AudioBookSchema(ma.Schema):
 
     class Meta:
         fields = ("id", "title", "author", "narrator", "duration", "uploaded_time")
-
-
-def init_db(app):
-    """
-    Create Databases using Schemas Defined.
-
-    Parameters
-    ----------
-    app: object.
-        Flask App Instance.
-
-    Returns
-    -------
-    db: object.
-        Database Instance.
-    """
-
-    # Create Tables.
-    with app.app_context():
-        db.create_all()
-        db.session.commit()
-
-    return db
