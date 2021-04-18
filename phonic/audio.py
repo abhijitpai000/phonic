@@ -7,8 +7,7 @@ Audio Blueprint.
 from flask import Blueprint, request, jsonify
 
 # Local Imports.
-from phonic import create_app
-from phonic.database import init_db
+from phonic.models import db
 from phonic.models import Song, Podcast, AudioBook
 from phonic.models import SongSchema, PodcastSchema, AudioBookSchema
 
@@ -16,10 +15,6 @@ from phonic.models import SongSchema, PodcastSchema, AudioBookSchema
 audio_bp = Blueprint(name="audio",
                      import_name=__name__,
                      url_prefix="/api")
-
-# Init Database.
-app = create_app()
-db = init_db(app)
 
 
 @audio_bp.route("/<audioFileType>/<audioFileID>", methods=["POST"])
