@@ -126,7 +126,7 @@ response = requests.request("PUT", url, headers=headers, data=payload)
 print(response.text)
 ```
 
-**Example 3: Delete Song 1 name using DELETE**
+**Example 4: Delete Song 1 name using DELETE**
 ```
 import requests
 import json
