@@ -58,10 +58,14 @@ def post_audio(audioFileType, audioFileID):
         id = audioFileID
         name = request.json["name"]
         duration = request.json["duration"]
+        host = request.json["host"]
+        participants = request.json["participants"]
 
         new_podcast = Podcast(id=id,
                               name=name,
-                              duration=duration)
+                              duration=duration,
+                              host=host,
+                              participants=participants)
 
         # Add new podcast to db.
         db.session.add(new_podcast)
