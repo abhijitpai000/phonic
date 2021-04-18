@@ -78,13 +78,13 @@ def post_audio(audioFileType, audioFileID):
 
     elif audioFileType == "audiobook":
         id = audioFileID
-        title = request.json["name"]
+        name = request.json["name"]
         author = request.json["author"]
         narrator = request.json["narrator"]
         duration = request.json["duration"]
 
         new_audiobook = AudioBook(id=id,
-                                  name=title,
+                                  name=name,
                                   author=author,
                                   narrator=narrator,
                                   duration=duration)
@@ -174,6 +174,89 @@ def get_specific_audio(audioFileType, audioFileID):
         records = AudioBook.query.get(audioFileID)
         audiobook_schema = AudioBookSchema()
         response = audiobook_schema.jsonify(records)
+
+    return response
+
+
+@audio_bp.route("/<audioFileType>/<audioFileID>", methods=["PUT"])
+def put_audio(audioFileType, audioFileID):
+    """
+    PUT Audio to the Database.
+
+    CRUD Operation: UPDATE
+
+    Parameters
+    ----------
+    audioFileType: str, max = 100 char
+        Audio File Type
+    audioFileID: int
+        Audio File ID
+
+    Returns
+    -------
+    response: json.
+
+    """
+    # default response.
+    response = jsonify({})
+
+    if audioFileType == "song":
+        # Grab User input.
+        id = audioFileID
+        name = request.json["name"]
+        duration = request.json["duration"]
+
+        # Update.
+        song = Song.query.get(id)
+        song.id = id
+        song.name = name
+        song.duration = duration
+
+        db.session.commit()
+
+        # Jsonify.
+        song_schema = SongSchema()
+        response = song_schema.jsonify(song)
+
+    elif audioFileType == "podcast":
+        # Grab User input.
+        id = audioFileID
+        name = request.json["name"]
+        duration = request.json["duration"]
+
+        # Update.
+        podcast = Song.query.get(id)
+        podcast.id = id
+        podcast.name = name
+        podcast.duration = duration
+
+        db.session.commit()
+
+        # Jsonify.
+        podcast_schema = PodcastSchema()
+        response = podcast_schema.jsonify(podcast)
+
+    elif audioFileType == "audiobook":
+        # Grab User input.
+        id = audioFileID
+        name = request.json["name"]
+        author = request.json["author"]
+        narrator = request.json["narrator"]
+        duration = request.json["duration"]
+
+        # Update.
+        audiobook = AudioBook.query.get(id)
+        audiobook.id = id
+        audiobook.name = name
+        audiobook.author = author
+        audiobook.narrator = narrator
+        audiobook.duration = duration
+
+        db.session.commit()
+
+        # Jsonify.
+        audiobook_schema = AudioBookSchema()
+        response = audiobook_schema.jsonify(audiobook)
 
     return response
 
