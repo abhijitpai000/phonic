@@ -203,4 +203,4 @@ class AudioBookSchema(ma.Schema):
     """
 
     class Meta:
-        fields = ("id", "title", "author", "narrator", "duration", "uploaded_time")
+        fields = ("id", "name", "author", "narrator", "duration", "uploaded_time")
