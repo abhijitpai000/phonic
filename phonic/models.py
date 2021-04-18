@@ -111,12 +111,12 @@ class Podcast(Base):
     # todo: Add Column Validation Layer to Podcast.
 
     host = db.Column(db.String(100),
-                     nullable=True)
+                     nullable=False)
 
     participants = db.Column(db.PickleType,
                              nullable=True)
 
-    def __init__(self, id, name, duration, host=None, participants=None):
+    def __init__(self, id, name, duration, host, participants=None):
         """
         Init Podcast Data Model.
 
@@ -130,7 +130,7 @@ class Podcast(Base):
             Duration of the Podcast
         host: str, max = 100 char
             Name of the Podcast Host
-        participants: pkl (list of string), max = 10 participants
+        participants: pkl (list of string), max = 10 participants, default=None
             Name of Participants.
 
         """
