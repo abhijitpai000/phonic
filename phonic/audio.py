@@ -7,7 +7,6 @@ from flask import Blueprint, request, jsonify, Response
 
 # Sqlalchemy Exceptions.
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.exc import PendingRollbackError
 
 # Local Imports.
 from phonic.models import db
