@@ -176,3 +176,53 @@ def get_specific_audio(audioFileType, audioFileID):
         response = audiobook_schema.jsonify(records)
 
     return response
+
+
+@audio_bp.route("/<audioFileType>/<audioFileID>", methods=["DELETE"])
+def delete_audio(audioFileType, audioFileID):
+    """
+    DELETE specific Audio of the audioFileType stored in the Database.
+
+    CRUD Operation: DELETE
+
+    Parameters
+    ----------
+    audioFileType: str, max = 100 char
+        Audio File Type
+
+    audioFileID: int.
+        Audio File ID.
+
+    Returns
+    -------
+    response: json.
+
+    """
+    # default response.
+    response = jsonify({})
+
+    if audioFileType == "song":
+        song = Song.query.get(audioFileID)
+        db.session.delete(song)
+        db.session.commit()
+
+        song_schema = SongSchema()
+        response = song_schema.jsonify(song)
+
+    elif audioFileType == "podcast":
+        podcast = Podcast.query.get(audioFileID)
+        db.session.delete(podcast)
+        db.session.commit()
+
+        podcast_schema = PodcastSchema()
+        response = podcast_schema.jsonify(podcast)
+
+    elif audioFileType == "audiobook":
+        audiobook = AudioBook.query.get(audioFileID)
+        db.session.delete(audiobook)
+        db.session.commit()
+
+        audiobook_schema = AudioBookSchema()
+        response = audiobook_schema.jsonify(audiobook)
+
+    return response
