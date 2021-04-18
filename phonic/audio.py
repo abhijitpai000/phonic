@@ -4,7 +4,7 @@ Audio Blueprint.
 """
 
 # Flask Imports.
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 # Local Imports.
 from phonic import create_app
@@ -41,6 +41,8 @@ def post_audio(audioFileType, audioFileID):
     response: json.
 
     """
+    # default response.
+    response = jsonify({})
 
     if audioFileType == "song":
         id = audioFileID
@@ -114,6 +116,9 @@ def get_audio(audioFileType):
     response: json.
 
     """
+    # default response.
+    response = jsonify({})
+
     if audioFileType == "song":
         records = Song.query.all()
         songs_schema = SongSchema(many=True)
@@ -152,6 +157,9 @@ def get_specific_audio(audioFileType, audioFileID):
     response: json.
 
     """
+    # default response.
+    response = jsonify({})
+
     if audioFileType == "song":
         records = Song.query.get(audioFileID)
         song_schema = SongSchema()
